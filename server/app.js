@@ -2,7 +2,9 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import postRouter from "./apps/posts.js";
+import authRouter from "./apps/auth.js";
 import { client } from "./utils/db.js";
+
 
 async function init() {
   const app = express();
@@ -12,6 +14,8 @@ async function init() {
 
   app.use(cors());
   app.use(bodyParser.json());
+
+  app.use("/auth", authRouter);
   app.use("/posts", postRouter);
 
   app.get("/", (req, res) => {
